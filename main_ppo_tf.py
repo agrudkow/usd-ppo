@@ -7,7 +7,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--cpu', type=int, default=4)
     parser.add_argument('--num_runs', type=int, default=5)
-    parser.add_argument('--name', type=str, default='ppo-pyt-half-cheetah')
+    parser.add_argument('--name', type=str, default='ppo-tf1-half-cheetah')
     args = parser.parse_args()
 
     eg = ExperimentGrid(name=args.name)
