@@ -20,4 +20,4 @@ if __name__ == '__main__':
     eg.add('target_kl', [0.01, 0.05])
     eg.add('ac_kwargs:hidden_sizes', [(32,), (64,64)], 'hid')
     eg.add('ac_kwargs:activation', [torch.nn.Tanh, torch.nn.ReLU], '')
-    eg.run(ppo_pytorch, num_cpu='auto')
+    eg.run(ppo_pytorch, num_cpu=args.cpu)
