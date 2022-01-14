@@ -6,7 +6,7 @@ for i in range(5):
     for gamma in [0.99, 0.94, 0.89]:
         for clip_ratio in [0.1, 0.2, 0.3]:
             for kl_target in [0.01, 0.05]:
-                model_name = f'ppo-rllib-half-cheetah-gamma{str(gamma)}-clip_ration{str(clip_ratio)}-target_kl{str(kl_target)}-v{i}'
+                model_name = f'ppo-rllib-half-cheetah-tanh-gamma{str(gamma)}-clip_ratio{str(clip_ratio)}-target_kl{str(kl_target)}-v{i}'
                 model_name = model_name.replace('.', '_')
                 print(
                     f'--------------------------------------------------------{model_name}--------------------------------------------'
@@ -17,7 +17,7 @@ for i in range(5):
                     "env": "HalfCheetah-v2",
                     # Use 2 environment workers (aka "rollout workers") that parallelly
                     # collect samples from their own environment clone(s).
-                    "num_workers": 10,
+                    "num_workers": 8,
                     # Change this to "framework: torch", if you are using PyTorch.
                     # Also, use "framework: tf2" for tf2.x eager execution.
                     "framework": "tf",
@@ -25,7 +25,7 @@ for i in range(5):
                     # given the environment's observation- and action spaces.
                     "model": {
                         "fcnet_hiddens": [64, 64],
-                        "fcnet_activation": "relu",
+                        "fcnet_activation": "tanh",
                     },
                     "train_batch_size": 4000,
                     "sgd_minibatch_size": 64,
@@ -47,11 +47,11 @@ for i in range(5):
                 # Run it for n training iterations. A training iteration includes
                 # parallel sample collection by the environment workers as well as
                 # loss calculation on the collected batch and a model update.
-                for _ in range(3):
+                for _ in range(1000):
                     print(trainer.train())
 
-                checkpoint_path = trainer.save(f'./models/rllib/{model_name}')
-                with open(f'./models/rllib/{model_name}.json', 'w') as f:
+                checkpoint_path = trainer.save(f'./models/rllib_tanh/{model_name}')
+                with open(f'./models/rllib_tanh/{model_name}.json', 'w') as f:
                     json.dump(config, f,  indent=4)
                 # Evaluate the trained Trainer (and render each timestep to the shell's
                 # output).
