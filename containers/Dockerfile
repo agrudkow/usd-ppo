@@ -35,7 +35,7 @@ COPY ./config/setup.py ${CODE_DIR}/stable-baselines3/setup.py
 COPY ./config/version.txt ${CODE_DIR}/stable-baselines3/stable_baselines3/version.txt
 
 RUN \
-    cd ${CODE_DIR}/stable-baselines3 3&& \
+    cd ${CODE_DIR}/stable-baselines3 && \
     pip install -e .[extra,tests,docs] && \
     # Use headless version for docker
     pip uninstall -y opencv-python && \
@@ -46,6 +46,12 @@ RUN \
 COPY ./install_spinup.sh ${CODE_DIR}/install_spinup.sh
 RUN chmod a+x ${CODE_DIR}/install_spinup.sh
 RUN ${CODE_DIR}/install_spinup.sh
+
+RUN apt-get update && apt-get install wget -y
+RUN wget https://mujoco.org/download/mujoco210-linux-x86_64.tar.gz
+RUN tar -xzvf ./mujoco210-linux-x86_64.tar.gz
+RUN mv ./mujoco210 /root/.mujoco
+RUN pip install 'mujoco-py<2.2,>=2.1'
 
 ENV OMPI_ALLOW_RUN_AS_ROOT 1
 ENV OMPI_ALLOW_RUN_AS_ROOT_CONFIRM 1

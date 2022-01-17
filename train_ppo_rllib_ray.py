@@ -2,7 +2,7 @@ from ray.rllib.agents.ppo import PPOTrainer
 from ray import tune
 import json
 
-for i in range(5):
+for i in range(3, 4, 1):
     for gamma in [0.99, 0.94, 0.89]:
         for clip_ratio in [0.1, 0.2, 0.3]:
             for kl_target in [0.01, 0.05]:
@@ -17,7 +17,7 @@ for i in range(5):
                     "env": "HalfCheetah-v2",
                     # Use 2 environment workers (aka "rollout workers") that parallelly
                     # collect samples from their own environment clone(s).
-                    "num_workers": 8,
+                    "num_workers": 2,
                     # Change this to "framework: torch", if you are using PyTorch.
                     # Also, use "framework: tf2" for tf2.x eager execution.
                     "framework": "tf",

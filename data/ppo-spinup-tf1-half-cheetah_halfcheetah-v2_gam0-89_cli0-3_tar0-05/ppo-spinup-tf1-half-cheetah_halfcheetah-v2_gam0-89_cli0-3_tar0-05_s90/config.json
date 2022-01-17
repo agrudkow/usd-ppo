@@ -1,0 +1,38 @@
+{
+    "ac_kwargs":	{},
+    "actor_critic":	"MLPActorCritic",
+    "clip_ratio":	0.3,
+    "env_fn":	"<function call_experiment.<locals>.thunk_plus.<locals>.<lambda> at 0x7ffb5c903b00>",
+    "epochs":	1000,
+    "exp_name":	"ppo-spinup-tf1-half-cheetah_halfcheetah-v2_gam0-89_cli0-3_tar0-05",
+    "gamma":	0.89,
+    "lam":	0.97,
+    "logger":	{
+        "<spinup.utils.logx.EpochLogger object at 0x7ffad003c150>":	{
+            "epoch_dict":	{},
+            "exp_name":	"ppo-spinup-tf1-half-cheetah_halfcheetah-v2_gam0-89_cli0-3_tar0-05",
+            "first_row":	true,
+            "log_current_row":	{},
+            "log_headers":	[],
+            "output_dir":	"/spinningup/data/ppo-spinup-tf1-half-cheetah_halfcheetah-v2_gam0-89_cli0-3_tar0-05/ppo-spinup-tf1-half-cheetah_halfcheetah-v2_gam0-89_cli0-3_tar0-05_s40",
+            "output_file":	{
+                "<_io.TextIOWrapper name='/spinningup/data/ppo-spinup-tf1-half-cheetah_halfcheetah-v2_gam0-89_cli0-3_tar0-05/ppo-spinup-tf1-half-cheetah_halfcheetah-v2_gam0-89_cli0-3_tar0-05_s40/progress.txt' mode='w' encoding='UTF-8'>":	{
+                    "mode":	"w"
+                }
+            }
+        }
+    },
+    "logger_kwargs":	{
+        "exp_name":	"ppo-spinup-tf1-half-cheetah_halfcheetah-v2_gam0-89_cli0-3_tar0-05",
+        "output_dir":	"/spinningup/data/ppo-spinup-tf1-half-cheetah_halfcheetah-v2_gam0-89_cli0-3_tar0-05/ppo-spinup-tf1-half-cheetah_halfcheetah-v2_gam0-89_cli0-3_tar0-05_s40"
+    },
+    "max_ep_len":	1000,
+    "pi_lr":	0.0003,
+    "save_freq":	10,
+    "seed":	40,
+    "steps_per_epoch":	4000,
+    "target_kl":	0.05,
+    "train_pi_iters":	80,
+    "train_v_iters":	80,
+    "vf_lr":	0.001
+}
