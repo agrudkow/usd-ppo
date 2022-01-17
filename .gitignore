@@ -2,3 +2,4 @@ venv
 logs
 .vscode
 models
+__pycache__

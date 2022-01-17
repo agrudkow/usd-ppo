@@ -20,3 +20,6 @@ tar -xzvf ./mujoco210-linux-x86_64.tar.gz
 rm mujoco210-linux-x86_64.tar.gz
 mv ./mujoco210 ~/.mujoco
 pip install 'mujoco-py<2.2,>=2.1'
+
+#install Jupyter notebook
+pip install notebook~=6.4.7
