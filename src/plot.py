@@ -13,7 +13,7 @@ exp_idx = 0
 units = dict()
 
 
-def plot_data(data,
+def plot_data(data: pd.DataFrame,
               xaxis='Epoch',
               value="AverageEpRet",
               condition="Condition1",
@@ -35,6 +35,7 @@ def plot_data(data,
 
     if isinstance(data, list):
         data = pd.concat(data, ignore_index=True)
+
     sns.set(context='notebook', style="darkgrid", font_scale=1.5)
     sns.tsplot(data=data,
                time=xaxis,
@@ -49,12 +50,13 @@ def plot_data(data,
         sns.lineplot(data=data, x=xaxis, y=value, hue=condition, ci='sd', **kwargs)
     Changes the colorscheme and the default legend style, though.
     """
-    plt.legend(loc='best').set_draggable(True)
-    # plt.legend(loc='upper center',
-    #            ncol=3,
-    #            handlelength=1,
-    #            borderaxespad=0.,
-    #            prop={'size': 15})
+    # plt.legend(loc='best').set_draggable(True)
+    plt.legend(loc='upper left',
+               ncol=1,
+               handlelength=1,
+               borderaxespad=0.,
+               bbox_to_anchor=(1, 1),
+               prop={'size': 18}).set_draggable(True)
     """
     For the version of the legend used in the Spinning Up benchmarking page, 
     swap L38 with:
@@ -113,7 +115,11 @@ def get_datasets(logdir, condition=None):
     return datasets
 
 
-def get_all_datasets(all_logdirs, legend=None, select=None, exclude=None):
+def get_all_datasets(all_logdirs,
+                     legend=None,
+                     select=None,
+                     exclude=None,
+                     verify_logdirs=False):
     """
     For every entry in all_logdirs,
         1) check if the entry is a real directory and if it is, 
@@ -143,11 +149,12 @@ def get_all_datasets(all_logdirs, legend=None, select=None, exclude=None):
             log for log in logdirs if all(not (x in log) for x in exclude)
         ]
 
-    # Verify logdirs
-    print('Plotting from...\n' + '=' * DIV_LINE_WIDTH + '\n')
-    for logdir in logdirs:
-        print(logdir)
-    print('\n' + '=' * DIV_LINE_WIDTH)
+    if verify_logdirs:
+        # Verify logdirs
+        print('Plotting from...\n' + '=' * DIV_LINE_WIDTH + '\n')
+        for logdir in logdirs:
+            print(logdir)
+        print('\n' + '=' * DIV_LINE_WIDTH)
 
     # Make sure the legend is compatible with the logdirs
     assert not(legend) or (len(legend) == len(logdirs)), \
@@ -166,27 +173,38 @@ def get_all_datasets(all_logdirs, legend=None, select=None, exclude=None):
 
 def make_plots(all_logdirs,
                legend=None,
+               title=None,
                xaxis='TotalEnvInteracts',
-               values='Performance',
+               values='AverageEpRet',
                count=False,
                font_scale=1.5,
+               linewidth=2.5,
                smooth=1,
                select=None,
                exclude=None,
-               estimator='mean'):
-    data = get_all_datasets(all_logdirs, legend, select, exclude)
+               estimator='mean',
+               verify_logdirs=False):
+    data = get_all_datasets(
+        all_logdirs,
+        legend,
+        select,
+        exclude,
+        verify_logdirs,
+    )
     values = values if isinstance(values, list) else [values]
     condition = 'Condition2' if count else 'Condition1'
     estimator = getattr(
         np, estimator)  # choose what to show on main curve: mean? max? min?
     for value in values:
-        plt.figure(figsize=(14, 7))
+        plt.figure(figsize=(14, 8))
         plot_data(data,
                   xaxis=xaxis,
                   value=value,
                   condition=condition,
                   smooth=smooth,
-                  estimator=estimator)
+                  estimator=estimator,
+                  linewidth=linewidth)
+    plt.title(title)
     plt.show()
 
 
