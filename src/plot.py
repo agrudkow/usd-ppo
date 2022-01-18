@@ -72,7 +72,7 @@ def plot_data(data: pd.DataFrame,
     plt.tight_layout(pad=0.5)
 
 
-def get_datasets(logdir, condition=None, delimiter=None):
+def get_datasets(logdir, condition=None):
     """
     Recursively look through logdir for output files produced by
     spinup.logx.Logger. 
@@ -81,6 +81,7 @@ def get_datasets(logdir, condition=None, delimiter=None):
     global exp_idx
     global units
     datasets = []
+    delimiter = ',' if 'rllib' in logdir else None
     for root, _, files in os.walk(logdir):
         if 'progress.txt' in files:
             exp_name = None
@@ -119,8 +120,7 @@ def get_all_datasets(all_logdirs,
                      legend=None,
                      select=None,
                      exclude=None,
-                     verify_logdirs=False,
-                     delimiter=None):
+                     verify_logdirs=False):
     """
     For every entry in all_logdirs,
         1) check if the entry is a real directory and if it is, 
@@ -165,10 +165,10 @@ def get_all_datasets(all_logdirs,
     data = []
     if legend:
         for log, leg in zip(logdirs, legend):
-            data += get_datasets(log, leg, delimiter=delimiter)
+            data += get_datasets(log, leg)
     else:
         for log in logdirs:
-            data += get_datasets(log, delimiter=delimiter)
+            data += get_datasets(log)
     return data
 
 
@@ -184,15 +184,13 @@ def make_plots(all_logdirs,
                select=None,
                exclude=None,
                estimator='mean',
-               verify_logdirs=False,
-               delimiter=None):
+               verify_logdirs=False):
     data = get_all_datasets(
         all_logdirs,
         legend,
         select,
         exclude,
         verify_logdirs,
-        delimiter,
     )
     values = values if isinstance(values, list) else [values]
     condition = 'Condition2' if count else 'Condition1'
