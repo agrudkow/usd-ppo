@@ -1,13 +1,13 @@
 #!/bin/bash
 
 #prepare venv
-python -m venv usd-ppo
+python3 -m venv usd-ppo
 source usd-ppo/bin/activate
 
 #install spinup
 git clone https://github.com/openai/spinningup.git
-git checkout 038665d62d569055401d91856abb287263096178
 cd spinningup
+git checkout 038665d62d569055401d91856abb287263096178
 pip install -e .
 cd ../
 
