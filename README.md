@@ -8,8 +8,9 @@ Repozytorium zostało podzielone na następujące sekcje:
 * data - rezultaty eksperymentów tj. pliki z przebiegów uczenia i modele
 * plots - wykresy wygenerowane w notatniku Jupyter w celach prezentacji
 * src - kod źródłowy zawierający pliki do trenowania, ewaluacji i prezentacji wyników
-
+* models - wytrenowane modele z RLlib
 ## Instalacja środowiska
+Do poprawnego działania środowiska wymagany jest Python w wersji **3.7**.
 W celu instalacji środowiska należy uruchomić skrypt `setup.sh`:
 ```sh
 source setup.sh
@@ -32,12 +33,12 @@ Wszystkie skrypty wykonują *grid search* na parametrach opisanych w dokumentacj
 
 Przykład wywołania:
 ```sh
-python train_spinup_ppo_tf.py
+python3.7 train_spinup_ppo_tf.py
 ```
 ## Ewaluacja
 Do ewaluacji wytrenowanych agentów ze spinnup-a używamy wbudowanego modułu [`run`](https://spinningup.openai.com/en/latest/user/saving_and_loading.html#if-environment-saves-successfully), który dostarcza taką funkcjonalność. Przykładowe wywołanie wygląda następująco:
 ```sh
-python -m spinup.run test_policy data/ppo-spinup-tf1-half-cheetah_halfcheetah-v2_gam0-89_cli0-1_tar0-01/ppo-spinup-tf1-half-cheetah_halfcheetah-v2_gam0-89_cli0-1_tar0-01_s50
+python3.7 -m spinup.run test_policy data/ppo-spinup-tf1-half-cheetah_halfcheetah-v2_gam0-99_cli0-2_tar0-01/ppo-spinup-tf1-half-cheetah_halfcheetah-v2_gam0-99_cli0-2_tar0-01_s50
 ```
 
 
@@ -46,7 +47,7 @@ W przypadku RLlib przygotowany do tego celu został skrypt `eval_ppo_rllib_ray.p
 * path_to_config - ścieżka do pliku z konfiguracją
 
 ```sh
-python eval_ppo_rllib_ray.py --path_to_config models/rllib_tanh/ppo-rllib-half-cheetah-tanh-gamma0_89-clip_ratio0_1-target_kl0_01-v0.json --path_to_checkpoint models/rllib_tanh/ppo-rllib-half-cheetah-tanh-gamma0_89-clip_ratio0_1-target_kl0_01-v0/checkpoint_001000/checkpoint-1000
+python3.7 eval_ppo_rllib_ray.py --path_to_config ../models/rllib_tanh/ppo-rllib-half-cheetah-tanh-gamma0_89-clip_ratio0_1-target_kl0_01-v0.json --path_to_checkpoint models/rllib_tanh/ppo-rllib-half-cheetah-tanh-gamma0_89-clip_ratio0_1-target_kl0_01-v0/checkpoint_001000/checkpoint-1000
 ```
 ## Prezentacja rezultatów
 Prezentacja wyników w postaci wykresów została przygotowana w notatniku Jupyter. Znajduje się on w folderze `src` pod nazwą `notebook.ipynb`. Do generacja wykresów wykorzystana została implementacja twórców SpinningUP-a, która została przerobiona pod potrzeby naszego rozwiązania. Plik z autorskimi zmianami nosi nazwę `plot.py`.

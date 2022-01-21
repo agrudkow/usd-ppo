@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #prepare venv
-python3 -m venv usd-ppo
+python3.7 -m venv usd-ppo
 source usd-ppo/bin/activate
 
 #install spinup

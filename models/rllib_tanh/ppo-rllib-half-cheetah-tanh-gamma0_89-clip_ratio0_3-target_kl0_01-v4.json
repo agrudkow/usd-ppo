@@ -1,0 +1,21 @@
+{
+    "env": "HalfCheetah-v2",
+    "num_workers": 2,
+    "framework": "tf",
+    "model": {
+        "fcnet_hiddens": [
+            64,
+            64
+        ],
+        "fcnet_activation": "tanh"
+    },
+    "train_batch_size": 4000,
+    "sgd_minibatch_size": 64,
+    "clip_param": 0.3,
+    "gamma": 0.89,
+    "kl_target": 0.01,
+    "evaluation_num_workers": 1,
+    "evaluation_config": {
+        "render_env": false
+    }
+}

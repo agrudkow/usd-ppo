@@ -1,7 +1,8 @@
+import argparse
 import json
 
 from ray.rllib.agents.ppo import PPOTrainer
-from config_rllib_exp import config_rllib_exp
+from config_rllib_exp import get_rllib_exp_config
 
 def run(save_dir, exp_name):
   """Run grid search for algorithm."""
@@ -15,9 +16,9 @@ def run(save_dir, exp_name):
 
           model_name = model_name.replace('.', '_')
           print(model_name.center(40, '-'))
-
+          config = get_rllib_exp_config(clip_ratio, gamma, kl_target)
           # Create our RLlib Trainer.
-          trainer = PPOTrainer(config=config_rllib_exp)
+          trainer = PPOTrainer(config=config)
 
           # Run it for n training iterations. A training iteration includes
           # parallel sample collection by the environment workers as well as

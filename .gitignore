@@ -2,7 +2,6 @@ venv
 usd-ppo
 logs
 .vscode
-models
 __pycache__
 .ipynb_checkpoints
 .mypy_cache
